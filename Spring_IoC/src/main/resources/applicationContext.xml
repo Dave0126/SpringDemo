@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    <bean id="userDaoSingleton" class="impl.UserDaoImpl" init-method="init" destroy-method="destroy"></bean>-->
+<!--    <bean id="userDaoPrototype" class="impl.UserDaoImpl" scope="prototype"></bean>-->
+
+<!--    &lt;!&ndash; 使用静态工厂返回Bean &ndash;&gt;-->
+<!--    <bean id="userDaoStaticFactory" class="factory.StaticFactory" factory-method="getUserDao"></bean>-->
+
+<!--    &lt;!&ndash; 使用动态工厂返回Bean &ndash;&gt;-->
+<!--        &lt;!&ndash; 1. 先创建一个动态工厂 &ndash;&gt;-->
+<!--    <bean id="DynamicFactory" class="factory.DynamicFactory"></bean>-->
+<!--        &lt;!&ndash; 2. 再通过动态工厂获得一个userDao对象 &ndash;&gt;-->
+<!--    <bean id="userDaoDynamicFactory" factory-bean="DynamicFactory" factory-method="getUserDao"></bean>-->
+
+    <bean id="userDao1" class="impl.UserDaoImpl">
+        <property name="username" value="gdai"></property>
+        <property name="age" value="24"></property>
+    </bean>
+    <bean id="userServiceBySetter" class="service.impl.UserServiceImpl">
+        <!-- 注入依赖关系 -->
+        <property name="userDao" ref="userDao1"></property>
+    </bean>
+
+<!--    <bean id="userDao2" class="impl.UserDaoImpl"></bean>-->
+    <bean id="userServiceByConstructor" class="service.impl.UserServiceImpl">
+        <!-- 注入依赖关系 -->
+        <constructor-arg name="userDao" ref="userDao1"></constructor-arg>
+    </bean>
+
+
+</beans>
