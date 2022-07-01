@@ -17,4 +17,6 @@ public class CalculateTest {
         Calculate cal = applicationContext.getBean(Calculate.class);
         cal.sub(1,2);
     }
+
+
 }
