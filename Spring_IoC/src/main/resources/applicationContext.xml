@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+">
 
 <!--    <bean id="userDaoSingleton" class="impl.UserDaoImpl" init-method="init" destroy-method="destroy"></bean>-->
 <!--    <bean id="userDaoPrototype" class="impl.UserDaoImpl" scope="prototype"></bean>-->
@@ -15,20 +21,83 @@
 <!--        &lt;!&ndash; 2. 再通过动态工厂获得一个userDao对象 &ndash;&gt;-->
 <!--    <bean id="userDaoDynamicFactory" factory-bean="DynamicFactory" factory-method="getUserDao"></bean>-->
 
-    <bean id="userDao1" class="impl.UserDaoImpl">
-        <property name="username" value="gdai"></property>
-        <property name="age" value="24"></property>
+<!--    <bean id="userDao1" class="impl.UserDaoImpl">-->
+<!--        <property name="username" value="gdai"></property>-->
+<!--        <property name="age" value="24"></property>-->
+<!--    </bean>-->
+
+<!--    <bean id="userServiceBySetter" class="service.impl.UserServiceImpl">-->
+<!--        &lt;!&ndash; 注入依赖关系 &ndash;&gt;-->
+<!--        <property name="userDao" ref="userDao1"></property>-->
+<!--    </bean>-->
+
+<!--&lt;!&ndash;    <bean id="userDao2" class="impl.UserDaoImpl"></bean>&ndash;&gt;-->
+<!--    <bean id="userServiceByConstructor" class="service.impl.UserServiceImpl">-->
+<!--        &lt;!&ndash; 注入依赖关系 &ndash;&gt;-->
+<!--        <constructor-arg name="userDao" ref="userDao1"></constructor-arg>-->
+<!--    </bean>-->
+
+<!--    <bean id="userDaoByStaticFactory" class="factory.StaticFactory" factory-method="getUserDaoInstance"/>-->
+
+<!--    <bean id="userDaoByConstructor" class="impl.UserDaoImpl" init-method="init" destroy-method="destroy"/>-->
+
+<!--    <bean id="userDao1" class="factory.UserDaoFactoryBean"/>-->
+
+
+    <bean id="bookDao" class="impl.BookDaoImpl">
+        <property name="array">
+            <array>
+                <value>100</value>
+                <value>200</value>
+                <value>300</value>
+            </array>
+        </property>
+
+        <property name="list">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+            </list>
+        </property>
+
+        <property name="map">
+            <map>
+                <entry key="country" value="china"/>
+                <entry key="province" value="sichuan"/>
+                <entry key="city" value="chengdu"/>
+            </map>
+        </property>
+
+        <property name="set">
+            <set>
+                <value>xxx</value>
+                <value>xxx</value>
+                <value>yyy</value>
+                <value>zzz</value>
+            </set>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="country">china</prop>
+                <prop key="province">sichuan</prop>
+                <prop key="city">chengdu</prop>
+            </props>
+        </property>
     </bean>
-    <bean id="userServiceBySetter" class="service.impl.UserServiceImpl">
-        <!-- 注入依赖关系 -->
-        <property name="userDao" ref="userDao1"></property>
+    
+    <bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/moviesdata?serverTimezone=Asia/Shanghai"/>
+        <property name="user" value="root"/>
+        <property name="password" value="root"/>
     </bean>
 
-<!--    <bean id="userDao2" class="impl.UserDaoImpl"></bean>-->
-    <bean id="userServiceByConstructor" class="service.impl.UserServiceImpl">
-        <!-- 注入依赖关系 -->
-        <constructor-arg name="userDao" ref="userDao1"></constructor-arg>
+    <context:property-placeholder location="classpath:demo.properties"/>
+    <bean name="dataSource1" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
     </bean>
-
-
 </beans>

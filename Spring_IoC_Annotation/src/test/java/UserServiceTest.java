@@ -1,11 +1,15 @@
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import dao.BookDao;
+import dao.impl.BookDaoImpl;
+import dao.impl.UserDaoImpl;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import service.UserService;
 import service.impl.UserServiceImpl;
+import utils.SpringConfig;
 
-import java.beans.PropertyVetoException;
 import java.sql.Connection;
 
 public class UserServiceTest {
@@ -30,8 +34,26 @@ public class UserServiceTest {
 
     @Test
     public void userServiceAnnotationTest(){
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(SpringConfig.class);
         UserService userService = context.getBean(UserServiceImpl.class);
         userService.save();
+    }
+
+    @Test
+    public void userDaoAnnotationTest() {
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(SpringConfig.class);
+        UserDaoImpl userDao = context.getBean(UserDaoImpl.class);
+        userDao.save();
+        context.close();
+    }
+
+    @Test
+    public void bookDaoAnnotationTest() {
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(SpringConfig.class);
+        BookDao bookDao = context.getBean(BookDaoImpl.class);
+        assert bookDao.toString().equals("[BookDao]: name=gdai");
     }
 }

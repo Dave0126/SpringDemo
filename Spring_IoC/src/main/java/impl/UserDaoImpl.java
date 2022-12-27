@@ -16,7 +16,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     public UserDaoImpl() {
-        System.out.println("UserDaoImpl 创建...");
+        System.out.println("UserDaoImpl 创建成功");
     }
 
     public void init(){
@@ -29,7 +29,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save() {
-        System.out.println("save running...");
-        System.out.println(username + " : " + age);
+        System.out.println("[UserDao] : "+username+", "+age+"save running...");
     }
 }

@@ -1,4 +1,6 @@
-package fr.spring_aop.gdai;
+package fr.spring_aop.gdai.Interfaces;
+
+import org.springframework.stereotype.Component;
 
 public interface Calculate {
     public int add(int num1, int num2);

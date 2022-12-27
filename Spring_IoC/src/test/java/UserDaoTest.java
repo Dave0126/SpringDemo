@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class UserDaoTest {
+
     @Test
     public void singletonTest(){
         ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
@@ -50,9 +51,18 @@ public class UserDaoTest {
      */
 
     @Test
+    public void constructorTest() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+        UserDao userDao1 = (UserDao) context.getBean("userDaoByConstructor");
+        System.out.print(userDao1 + " : ");
+        userDao1.save();
+        ((ClassPathXmlApplicationContext) context).registerShutdownHook();
+    }
+
+    @Test
     public void staticFactoryTest(){
         ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-        UserDao userDao1 = (UserDao) context.getBean("userDaoStaticFactory");
+        UserDao userDao1 = (UserDao) context.getBean("userDaoByStaticFactory");
         System.out.println(userDao1);
     }
     /*
@@ -74,4 +84,11 @@ public class UserDaoTest {
         UserDaoImpl 创建...
         impl.UserDaoImpl@5bcea91b
      */
+
+    @Test
+    public void userDaoBeanFactory() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+        UserDao userDao1 = (UserDao) context.getBean("userDao1");
+        userDao1.save();
+    }
 }

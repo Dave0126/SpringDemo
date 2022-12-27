@@ -12,6 +12,9 @@
         <module>Spring_IoC</module>
         <module>Spring_IoC_Annotation</module>
         <module>Spring_AOP</module>
+        <module>Spring_Transaction</module>
+        <module>SpringMVC</module>
+        <module>SSM</module>
     </modules>
 
     <properties>
